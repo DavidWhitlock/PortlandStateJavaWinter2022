@@ -24,6 +24,10 @@ public class Student extends Human {
    */                                                                               
   public Student(String name, ArrayList<String> classes, double gpa, String gender) {
     super(name);
+
+    if (name.length() > 40) {
+      throw new IllegalArgumentException("Name is too long");
+    }
   }
 
   /**                                                                               
