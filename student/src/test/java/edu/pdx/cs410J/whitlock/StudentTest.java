@@ -72,4 +72,11 @@ public class StudentTest
     assertThat(ex.getMessage(), containsString(unrecognizedGender));
   }
 
+  @Test
+  void toStringContainsStudentName() {
+    String studentName = "Dave";
+    Student dave = createStudentNamed(studentName);
+    assertThat(dave.toString(), containsString(studentName));
+  }
+
 }

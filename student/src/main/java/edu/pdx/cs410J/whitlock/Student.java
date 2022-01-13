@@ -55,7 +55,7 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    return this.genderPronoun;
+    return getName() + " " + this.genderPronoun;
   }
 
   private String getGenderPronoun(String gender) {
@@ -82,6 +82,7 @@ public class Student extends Human {
       printErrorMessageAndExit(MISSING_COMMAND_LINE_ARGUMENTS);
     }
 
+    String name = args[0];
     String gpaString = args[2];
     try {
       Double.parseDouble(gpaString);
@@ -89,6 +90,10 @@ public class Student extends Human {
     } catch (NumberFormatException ex) {
       printErrorMessageAndExit(gpaString + " is an invalid gpa");
     }
+
+    Student student = new Student(name, new ArrayList<>(), 0.00, "other");
+    System.out.println(student);
+    System.exit(0);
   }
 
   private static void printErrorMessageAndExit(String message) {
