@@ -15,6 +15,7 @@ public class Student extends Human {
   static final String MALE_PRONOUN = "He";
   static final String FEMALE_GENDER = "female";
   static final String MALE_GENDER = "male";
+  static final String MISSING_COMMAND_LINE_ARGUMENTS = "Missing command line arguments";
 
   private final String genderPronoun;
 
@@ -77,8 +78,10 @@ public class Student extends Human {
    * standard out by invoking its <code>toString</code> method.
    */
   public static void main(String[] args) {
-    System.err.println("Missing command line arguments");
-    System.exit(1);
+    if (args.length < 3) {
+      System.err.println(MISSING_COMMAND_LINE_ARGUMENTS);
+      System.exit(1);
+    }
   }
 
   public static class UnrecognizedGenderException extends RuntimeException {
