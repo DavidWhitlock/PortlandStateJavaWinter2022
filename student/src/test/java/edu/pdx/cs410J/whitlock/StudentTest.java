@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -38,6 +39,12 @@ public class StudentTest
 
   private Student createStudentNamed(String studentName) {
     return new Student(studentName, new ArrayList<>(), 0.0, "Doesn't matter");
+  }
+
+  @Test
+  void femaleGenderHasShePronoun() {
+    Student femaleStudent = new Student("Name", new ArrayList<>(), 0.0, "female");
+    assertThat(femaleStudent.toString(), containsString("She"));
   }
 
 }

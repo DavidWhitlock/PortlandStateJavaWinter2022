@@ -7,9 +7,11 @@ import java.util.ArrayList;
 /**                                                                                 
  * This class is represents a <code>Student</code>.                                 
  */                                                                                 
-public class Student extends Human {                                                
-                                                                                    
-  /**                                                                               
+public class Student extends Human {
+
+  private final String gender;
+
+  /**
    * Creates a new <code>Student</code>                                             
    *                                                                                
    * @param name                                                                    
@@ -20,7 +22,7 @@ public class Student extends Human {
    * @param gpa                                                                     
    *        The student's grade point average                                       
    * @param gender                                                                  
-   *        The student's gender ("male", "female", or "other", case insensitive)
+   *        The student's gender ("male", "female", or "other", case-insensitive)
    */                                                                               
   public Student(String name, ArrayList<String> classes, double gpa, String gender) {
     super(name);
@@ -28,6 +30,8 @@ public class Student extends Human {
     if (name.length() > 40) {
       throw new IllegalArgumentException("Name is too long");
     }
+
+    this.gender = gender;
   }
 
   /**                                                                               
@@ -43,7 +47,11 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    if (this.gender.equals("female")) {
+      return "She";
+    }
+
+    throw new UnsupportedOperationException("Gender " + this.gender + " not supported yet");
   }
 
   /**
