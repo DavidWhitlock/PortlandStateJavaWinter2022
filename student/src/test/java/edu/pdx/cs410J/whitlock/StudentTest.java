@@ -1,5 +1,6 @@
 package edu.pdx.cs410J.whitlock;
 
+import edu.pdx.cs410J.whitlock.Student.UnrecognizedGenderException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -27,18 +29,11 @@ public class StudentTest
   @Test
   void nameLongerThan40CharactersThrowsIllegalArgumentException() {
     String tooLongName = "12345678901234567890123456789012345678901";
-
-    try {
-      createStudentNamed(tooLongName);
-      fail("Should have thrown an IllegalArgumentException");
-
-    } catch (IllegalArgumentException ex) {
-      // pass.
-    }
+    assertThrows(IllegalArgumentException.class, () -> createStudentNamed(tooLongName));
   }
 
   private Student createStudentNamed(String studentName) {
-    return new Student(studentName, new ArrayList<>(), 0.0, "Doesn't matter");
+    return new Student(studentName, new ArrayList<>(), 0.0, "other");
   }
 
   @Test
@@ -67,6 +62,14 @@ public class StudentTest
   void otherGenderCaseInsensitiveHasTheyPronoun() {
     Student maleStudent = createStudentWithGender("OTHER");
     assertThat(maleStudent.toString(), containsString(Student.THEY_PRONOUN));
+  }
+
+  @Test
+  void unrecognizedGenderThrowsUnrecognizedGenderException() {
+    String unrecognizedGender = "unsupported";
+    UnrecognizedGenderException ex =
+      assertThrows(UnrecognizedGenderException.class, () -> createStudentWithGender(unrecognizedGender));
+    assertThat(ex.getMessage(), containsString(unrecognizedGender));
   }
 
 }

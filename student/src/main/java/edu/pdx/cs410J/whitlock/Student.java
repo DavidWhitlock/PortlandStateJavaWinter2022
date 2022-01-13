@@ -16,7 +16,7 @@ public class Student extends Human {
   static final String FEMALE_GENDER = "female";
   static final String MALE_GENDER = "male";
 
-  private final String gender;
+  private final String genderPronoun;
 
   /**
    * Creates a new <code>Student</code>                                             
@@ -38,7 +38,7 @@ public class Student extends Human {
       throw new IllegalArgumentException("Name is too long");
     }
 
-    this.gender = gender;
+    this.genderPronoun = getGenderPronoun(gender);
   }
 
   /**                                                                               
@@ -54,17 +54,21 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    if (FEMALE_GENDER.equalsIgnoreCase(this.gender)) {
+    return this.genderPronoun;
+  }
+
+  private String getGenderPronoun(String gender) {
+    if (FEMALE_GENDER.equalsIgnoreCase(gender)) {
       return FEMALE_PRONOUN;
 
-    } else if (MALE_GENDER.equalsIgnoreCase(this.gender)) {
+    } else if (MALE_GENDER.equalsIgnoreCase(gender)) {
       return MALE_PRONOUN;
 
-    } else if (OTHER_GENDER.equalsIgnoreCase(this.gender)) {
+    } else if (OTHER_GENDER.equalsIgnoreCase(gender)) {
       return THEY_PRONOUN;
     }
 
-    throw new UnsupportedOperationException("Gender " + this.gender + " not supported yet");
+    throw new UnrecognizedGenderException("Gender " + gender + " not supported yet");
   }
 
   /**
@@ -75,5 +79,11 @@ public class Student extends Human {
   public static void main(String[] args) {
     System.err.println("Missing command line arguments");
     System.exit(1);
+  }
+
+  public static class UnrecognizedGenderException extends RuntimeException {
+    public UnrecognizedGenderException(String message) {
+      super(message);
+    }
   }
 }
