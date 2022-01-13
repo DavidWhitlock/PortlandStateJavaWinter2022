@@ -54,19 +54,17 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    switch (this.gender) {
-      case FEMALE_GENDER:
-        return FEMALE_PRONOUN;
+    if (FEMALE_GENDER.equalsIgnoreCase(this.gender)) {
+      return FEMALE_PRONOUN;
 
-      case MALE_GENDER:
-        return MALE_PRONOUN;
+    } else if (MALE_GENDER.equalsIgnoreCase(this.gender)) {
+      return MALE_PRONOUN;
 
-      case OTHER_GENDER:
-        return THEY_PRONOUN;
-
-      default:
-        throw new UnsupportedOperationException("Gender " + this.gender + " not supported yet");
+    } else if (OTHER_GENDER.equalsIgnoreCase(this.gender)) {
+      return THEY_PRONOUN;
     }
+
+    throw new UnsupportedOperationException("Gender " + this.gender + " not supported yet");
   }
 
   /**
