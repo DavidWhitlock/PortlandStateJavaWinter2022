@@ -39,7 +39,16 @@ public class Student extends Human {
       throw new IllegalArgumentException("Name is too long");
     }
 
+    validateGpa(gpa);
+
     this.genderPronoun = getGenderPronoun(gender);
+  }
+
+  private void validateGpa(double gpa) {
+    if (gpa > 4.0) {
+      throw new InvalidGpaException(gpa);
+    }
+
   }
 
   /**                                                                               
@@ -84,16 +93,24 @@ public class Student extends Human {
 
     String name = args[0];
     String gpaString = args[2];
+
+    double gpa;
     try {
-      Double.parseDouble(gpaString);
+      gpa = Double.parseDouble(gpaString);
 
     } catch (NumberFormatException ex) {
       printErrorMessageAndExit(gpaString + " is an invalid gpa");
+      return;
     }
 
-    Student student = new Student(name, new ArrayList<>(), 0.00, "other");
-    System.out.println(student);
-    System.exit(0);
+    try {
+      Student student = new Student(name, new ArrayList<>(), gpa, "other");
+      System.out.println(student);
+      System.exit(0);
+
+    } catch (InvalidGpaException ex) {
+      printErrorMessageAndExit(gpa + " is an invalid gpa");
+    }
   }
 
   private static void printErrorMessageAndExit(String message) {
@@ -104,6 +121,12 @@ public class Student extends Human {
   public static class UnrecognizedGenderException extends RuntimeException {
     public UnrecognizedGenderException(String message) {
       super(message);
+    }
+  }
+
+  public static class InvalidGpaException extends RuntimeException {
+    public InvalidGpaException(double gpa) {
+      super("Invalid gpa: " + gpa);
     }
   }
 }

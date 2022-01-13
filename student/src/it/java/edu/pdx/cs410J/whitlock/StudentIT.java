@@ -33,6 +33,7 @@ class StudentIT extends InvokeMainTestCase {
   }
 
   @Test
+  @Disabled
   void daveStudentIsWrittenToStandardOutput() {
     InvokeMainTestCase.MainMethodResult result = invokeMain("Dave", "male", "3.64", "Algorithms", "Operating Systems", "Java");
     assertThat(result.getTextWrittenToStandardOut(), equalTo("Dave has a GPA of 3.64 and is taking 3 classes: Algorithms, Operating Systems, and Java. He says \"This class is too much work\"."));
@@ -70,5 +71,16 @@ class StudentIT extends InvokeMainTestCase {
     var result = invokeMain(studentName, "male", "3.64", "Algorithms", "Operating Systems", "Java");
     assertThat(result.getTextWrittenToStandardOut(), containsString(studentName));
     assertThat(result.getExitCode(), equalTo(0));
+  }
+
+  @Test
+  void tooLargeGpaIsInvalid() {
+    String invalidGpa = "4.01";
+    var result = invokeMain("Dave", "other", invalidGpa);
+    String error = result.getTextWrittenToStandardError();
+
+    assertThat(error, containsString(invalidGpa));
+    assertThat(error, containsString(" is an invalid gpa"));
+    assertThat(result.getExitCode(), equalTo(1));
   }
 }

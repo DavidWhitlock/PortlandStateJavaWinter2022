@@ -1,5 +1,6 @@
 package edu.pdx.cs410J.whitlock;
 
+import edu.pdx.cs410J.whitlock.Student.InvalidGpaException;
 import edu.pdx.cs410J.whitlock.Student.UnrecognizedGenderException;
 import org.junit.jupiter.api.Test;
 
@@ -77,6 +78,19 @@ public class StudentTest
     String studentName = "Dave";
     Student dave = createStudentNamed(studentName);
     assertThat(dave.toString(), containsString(studentName));
+  }
+
+  @Test
+  void tooLargeGpaThrowAnInvalidGpaException() {
+    double invalidGpa = 4.01;
+    InvalidGpaException ex =
+      assertThrows(InvalidGpaException.class, () -> createStudentWithGpa(invalidGpa));
+    assertThat(ex.getMessage(), containsString(String.valueOf(invalidGpa)));
+
+  }
+
+  private Student createStudentWithGpa(double gpa) {
+    return new Student("Name", new ArrayList<>(), gpa, "other");
   }
 
 }
