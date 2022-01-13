@@ -79,9 +79,21 @@ public class Student extends Human {
    */
   public static void main(String[] args) {
     if (args.length < 3) {
-      System.err.println(MISSING_COMMAND_LINE_ARGUMENTS);
-      System.exit(1);
+      printErrorMessageAndExit(MISSING_COMMAND_LINE_ARGUMENTS);
     }
+
+    String gpaString = args[2];
+    try {
+      Double.parseDouble(gpaString);
+
+    } catch (NumberFormatException ex) {
+      printErrorMessageAndExit(gpaString + " is an invalid gpa");
+    }
+  }
+
+  private static void printErrorMessageAndExit(String message) {
+    System.err.println(message);
+    System.exit(1);
   }
 
   public static class UnrecognizedGenderException extends RuntimeException {

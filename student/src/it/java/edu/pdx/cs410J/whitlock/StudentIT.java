@@ -54,4 +54,15 @@ class StudentIT extends InvokeMainTestCase {
     assertThat(result.getExitCode(), equalTo(1));
   }
 
+  @Test
+  void invalidNumberIsNotAValidGpa() {
+    String invalidGpa = "foo";
+    var result = invokeMain("Dave", "other", invalidGpa);
+    String error = result.getTextWrittenToStandardError();
+
+    assertThat(error, containsString(invalidGpa));
+    assertThat(error, containsString(" is an invalid gpa"));
+    assertThat(result.getExitCode(), equalTo(1));
+
+  }
 }
