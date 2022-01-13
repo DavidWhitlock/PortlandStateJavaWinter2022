@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */                                                                                 
 public class Student extends Human {
 
+  static final String THEY_PRONOUN = "They";
+  static final String OTHER_GENDER = "other";
   static final String FEMALE_PRONOUN = "She";
   static final String MALE_PRONOUN = "He";
   static final String FEMALE_GENDER = "female";
@@ -58,6 +60,9 @@ public class Student extends Human {
 
       case MALE_GENDER:
         return MALE_PRONOUN;
+
+      case OTHER_GENDER:
+        return THEY_PRONOUN;
 
       default:
         throw new UnsupportedOperationException("Gender " + this.gender + " not supported yet");

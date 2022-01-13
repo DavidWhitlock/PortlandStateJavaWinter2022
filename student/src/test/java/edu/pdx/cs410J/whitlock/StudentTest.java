@@ -57,4 +57,10 @@ public class StudentTest
     assertThat(maleStudent.toString(), containsString(Student.MALE_PRONOUN));
   }
 
+  @Test
+  void otherGenderHasTheyPronoun() {
+    Student maleStudent = createStudentWithGender(Student.OTHER_GENDER);
+    assertThat(maleStudent.toString(), containsString(Student.THEY_PRONOUN));
+  }
+
 }
