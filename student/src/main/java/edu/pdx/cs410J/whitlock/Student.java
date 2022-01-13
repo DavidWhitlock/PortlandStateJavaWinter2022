@@ -9,6 +9,11 @@ import java.util.ArrayList;
  */                                                                                 
 public class Student extends Human {
 
+  static final String FEMALE_PRONOUN = "She";
+  static final String MALE_PRONOUN = "He";
+  static final String FEMALE_GENDER = "female";
+  static final String MALE_GENDER = "male";
+
   private final String gender;
 
   /**
@@ -47,11 +52,16 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    if (this.gender.equals("female")) {
-      return "She";
-    }
+    switch (this.gender) {
+      case FEMALE_GENDER:
+        return FEMALE_PRONOUN;
 
-    throw new UnsupportedOperationException("Gender " + this.gender + " not supported yet");
+      case MALE_GENDER:
+        return MALE_PRONOUN;
+
+      default:
+        throw new UnsupportedOperationException("Gender " + this.gender + " not supported yet");
+    }
   }
 
   /**

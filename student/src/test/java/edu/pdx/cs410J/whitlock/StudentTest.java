@@ -43,8 +43,18 @@ public class StudentTest
 
   @Test
   void femaleGenderHasShePronoun() {
-    Student femaleStudent = new Student("Name", new ArrayList<>(), 0.0, "female");
-    assertThat(femaleStudent.toString(), containsString("She"));
+    Student femaleStudent = createStudentWithGender(Student.FEMALE_GENDER);
+    assertThat(femaleStudent.toString(), containsString(Student.FEMALE_PRONOUN));
+  }
+
+  private Student createStudentWithGender(String gender) {
+    return new Student("Name", new ArrayList<>(), 0.0, gender);
+  }
+
+  @Test
+  void maleGenderHasHePronoun() {
+    Student maleStudent = createStudentWithGender(Student.MALE_GENDER);
+    assertThat(maleStudent.toString(), containsString(Student.MALE_PRONOUN));
   }
 
 }
