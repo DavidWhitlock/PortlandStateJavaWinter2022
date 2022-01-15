@@ -77,7 +77,10 @@ discussion about  your code.
 The below `git` command line examples are expressed using UNIX syntax.  They
 are known to work on the CS Department's Linux machines and on MacOS.  Students
 who run on Windows may need to use "Git CMD" instead of "Git Bash" to get 
-authentication with GitHub to work with HTTPS.
+authentication with GitHub to work with HTTPS.  (Note that GitHub will no longer authenticate HTTPS with 
+username/password credentials.  Authenticating with [ssh keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+or with [personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+is recommended.)
 
 Now, here comes some of the magic.  Make a "bare" clone of my repository.  
 
@@ -272,6 +275,10 @@ available to IntelliJ and your IDE will be very unhappy.  If you find
 yourself in this situation, close the IntelliJ project, and delete all
 `.iml` files and the `.idea` directory associated with Maven project.
 
+Note also that the first time you open up IntelliJ, you must [configure the Java Development Kit
+(JDK)](https://www.jetbrains.com/help/idea/sdk.html#jdk).  Otherwise, IntelliJ will complain that it cannot find classes
+like `java.lang.String`.  There will be a lot of red in the IDE.
+
 ### How can I get a copy of this code on the CS Department's Linux machines?
 
 While your projects can be developed on any machine, they must be
@@ -335,7 +342,9 @@ Projects are submitted using the `submit.sh` script.  Project code is not submit
 instructor.  This script invokes a Java program that zips up the source code and emails it to the Grader.  Like the
 `survey.sh` script, it can only be run on the PSU CECS Linux machines.  This script also builds the project using
 `mvn -Dgrader clean verify` to validate that the code that you are about to submit compiles, the tests succeed, and
-that the tests provide sufficient code coverage.
+that the tests provide sufficient code coverage.  Make sure that all of your code compiles before you submit it.
+The Grader will not to attempt to debug your code.  Your grade will be reduced significantly if your code does not
+compile and the Grader has to read it.
 
 The `submit.sh` script takes one argument, the name of the Project to submit.  The Project name (number) will determine
 the directory that contains the project's code.  For instance, you can submit Project 1 by running the following command
@@ -352,6 +361,13 @@ optional information will be recorded and reported to future students in aggrega
 time they should plan to spend on projects.  The estimated hours you report will have no bearing on your grade.      
 
 The script may take a moment or two to zip the source files and email them to the Grader.
+
+If your project has missing functionality or if there is anything you'd like the Grader to know about your project, the
+`submit.sh` script supports an addition second argument that records a comment for your submission. 
+
+```shell
+$ ./submit.sh Project1 "I did not have time to get one-digit hours working"
+```
 
 ## How do I use the "parent POM"?
 
