@@ -89,6 +89,12 @@ public class StudentTest
 
   }
 
+  @Test
+  void saysIsNotImplementedYet() {
+    Student student = createStudentWithGpa(4.0);
+    assertThrows(UnsupportedOperationException.class, student::says);
+  }
+
   private Student createStudentWithGpa(double gpa) {
     return new Student("Name", new ArrayList<>(), gpa, "other");
   }
