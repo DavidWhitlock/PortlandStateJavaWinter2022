@@ -113,4 +113,11 @@ public class StudentTest
   void createStudentFromCommandLineWithZeroArgumentsThrowsMissingCommandLineArgumentsException() {
     assertThrows(Student.MissingCommandLineArgumentsException.class, () -> Student.createStudentFromCommandLineArguments());
   }
+
+  @Test
+  void createStudentFromCommandLineSetsGender() {
+    String gender = "female";
+    Student student = Student.createStudentFromCommandLineArguments("name", gender, "3.45");
+    assertThat(student.getGenderPronoun(), equalTo(Student.FEMALE_PRONOUN));
+  }
 }

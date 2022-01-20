@@ -52,6 +52,10 @@ public class Student extends Human {
 
   }
 
+  public String getGenderPronoun() {
+    return this.genderPronoun;
+  }
+
   /**                                                                               
    * All students say "This class is too much work"
    */
@@ -89,6 +93,7 @@ public class Student extends Human {
     }
 
     String name = args[0];
+    String gender = args[1];
     String gpaString = args[2];
 
     double gpa;
