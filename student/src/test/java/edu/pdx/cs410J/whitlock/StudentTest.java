@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.in;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -99,4 +100,17 @@ public class StudentTest
     return new Student("Name", new ArrayList<>(), gpa, "other");
   }
 
+
+  @Test
+  void createStudentFromCommandLineWithNonNumericGpaThrowsInvalidGpaException() {
+    String invalidGpa = "NOT A DOUBLE";
+    InvalidGpaException ex = assertThrows(InvalidGpaException.class,
+      () -> Student.createStudentFromCommandLineArguments("name", "other", invalidGpa));
+    assertThat(ex.getInvalidGpa(), equalTo(invalidGpa));
+  }
+
+  @Test
+  void createStudentFromCommandLineWithZeroArgumentsThrowsMissingCommandLineArgumentsException() {
+    assertThrows(Student.MissingCommandLineArgumentsException.class, () -> Student.createStudentFromCommandLineArguments());
+  }
 }

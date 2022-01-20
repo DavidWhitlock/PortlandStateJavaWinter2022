@@ -1,5 +1,6 @@
 package edu.pdx.cs410J.whitlock;
 
+import com.google.common.annotations.VisibleForTesting;
 import edu.pdx.cs410J.lang.Human;
 
 import java.util.ArrayList;
@@ -81,14 +82,10 @@ public class Student extends Human {
     throw new UnrecognizedGenderException("Gender " + gender + " not supported yet");
   }
 
-  /**
-   * Main program that parses the command line, creates a
-   * <code>Student</code>, and prints a description of the student to
-   * standard out by invoking its <code>toString</code> method.
-   */
-  public static void main(String[] args) {
+  @VisibleForTesting
+  static Student createStudentFromCommandLineArguments(String... args) {
     if (args.length < 3) {
-      printErrorMessageAndExit(MISSING_COMMAND_LINE_ARGUMENTS);
+      throw new MissingCommandLineArgumentsException();
     }
 
     String name = args[0];
@@ -99,18 +96,30 @@ public class Student extends Human {
       gpa = Double.parseDouble(gpaString);
 
     } catch (NumberFormatException ex) {
-      printErrorMessageAndExit(gpaString + " is an invalid gpa");
-      return;
+      throw new InvalidGpaException(gpaString);
     }
 
+    return new Student(name, new ArrayList<>(), gpa, "other");
+  }
+
+  /**
+   * Main program that parses the command line, creates a
+   * <code>Student</code>, and prints a description of the student to
+   * standard out by invoking its <code>toString</code> method.
+   */
+  public static void main(String[] args) {
     try {
-      Student student = new Student(name, new ArrayList<>(), gpa, "other");
+      Student student = createStudentFromCommandLineArguments(args);
       System.out.println(student);
       System.exit(0);
 
     } catch (InvalidGpaException ex) {
-      printErrorMessageAndExit(gpa + " is an invalid gpa");
+      printErrorMessageAndExit(ex.getInvalidGpa() + " is an invalid gpa");
+
+    } catch (MissingCommandLineArgumentsException ex) {
+      printErrorMessageAndExit(MISSING_COMMAND_LINE_ARGUMENTS);
     }
+
   }
 
   private static void printErrorMessageAndExit(String message) {
@@ -125,8 +134,23 @@ public class Student extends Human {
   }
 
   public static class InvalidGpaException extends RuntimeException {
-    public InvalidGpaException(double gpa) {
-      super("Invalid gpa: " + gpa);
+    private final String invalidGpa;
+
+    public InvalidGpaException(double invalidGpa) {
+      this(String.valueOf(invalidGpa));
     }
+
+    public InvalidGpaException(String  invalidGpa) {
+      super("Invalid gpa: " + invalidGpa);
+      this.invalidGpa = invalidGpa;
+    }
+
+    public String getInvalidGpa() {
+      return invalidGpa;
+    }
+
+  }
+
+  public static class MissingCommandLineArgumentsException extends RuntimeException {
   }
 }
