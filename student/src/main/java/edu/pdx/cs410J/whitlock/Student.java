@@ -104,7 +104,7 @@ public class Student extends Human {
       throw new InvalidGpaException(gpaString);
     }
 
-    return new Student(name, new ArrayList<>(), gpa, "other");
+    return new Student(name, new ArrayList<>(), gpa, gender);
   }
 
   /**
