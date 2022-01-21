@@ -72,7 +72,7 @@ public class Student extends Human {
     return getName() + " " + this.genderPronoun;
   }
 
-  private String getGenderPronoun(String gender) {
+  private static String getGenderPronoun(String gender) {
     if (FEMALE_GENDER.equalsIgnoreCase(gender)) {
       return FEMALE_PRONOUN;
 
