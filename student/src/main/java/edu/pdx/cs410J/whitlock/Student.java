@@ -63,7 +63,7 @@ public class Student extends Human {
   public String says() {                                                            
     throw new UnsupportedOperationException("Not implemented yet");
   }
-                                                                                    
+
   /**                                                                               
    * Returns a <code>String</code> that describes this                              
    * <code>Student</code>.                                                          
