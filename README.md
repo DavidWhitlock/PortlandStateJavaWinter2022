@@ -1,4 +1,4 @@
-[![Java CI with Maven](https://github.com/YourGitHubId/PortlandStateJavaWinter2022/actions/workflows/maven.yml/badge.svg)](https://github.com/YourGitHubId/PortlandStateJavaWinter2022/actions/workflows/maven.yml)
+[![Java CI with Maven](https://github.com/DavidWhitlock/PortlandStateJavaWinter2022/actions/workflows/maven.yml/badge.svg)](https://github.com/DavidWhitlock/PortlandStateJavaWinter2022/actions/workflows/maven.yml)
 
 # Getting Started with Advanced Programming with Java
 
@@ -300,7 +300,7 @@ After `ssh`ing to one of the CS Department's Linux machines, you can
 make a clone of your GitHub repository using with:
 
 ```
-$ git clone https://github.com/YourGitHubId/PortlandStateJavaWinter2022.git
+$ git clone https://github.com/DavidWhitlock/PortlandStateJavaWinter2022.git
 ```
 
 ### How can I get changes that other people make into my clone?
