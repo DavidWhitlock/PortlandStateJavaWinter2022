@@ -21,7 +21,7 @@ accordingly
   <packaging>pom</packaging>
   <name>PSUJavaWinter2022</name>
   <description>Source code written in the Winter 2022 offering of Advanced Programming with Java</description>
-  <url>http://DavidWhitlock.github.io/PortlandStateJavaWinter2022</url>
+  <url>http://davidwhitlock.github.io/PortlandStateJavaWinter2022</url>
 
   <modules>
     <module>student</module>
@@ -85,7 +85,7 @@ accordingly
     <site>
       <id>gh-pages</id>
       <name>GitHub Pages</name>
-      <url>github:http://DavidWhitlock.github.io/PortlandStateJavaWinter2022/</url>
+      <url>github:http://davidwhitlock.github.io/PortlandStateJavaWinter2022/</url>
     </site>
   </distributionManagement>
 
