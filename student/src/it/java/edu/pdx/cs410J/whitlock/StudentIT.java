@@ -83,4 +83,20 @@ class StudentIT extends InvokeMainTestCase {
     assertThat(error, containsString(" is an invalid gpa"));
     assertThat(result.getExitCode(), equalTo(1));
   }
+
+  @Test
+  void enrolledClassesAreWrittenToStandardOut() {
+    String class1 = "Operating Systems";
+    String class2 = "Compilers";
+    String class3 = "Algorithms";
+
+    MainMethodResult result = invokeMain("Name", "other", "3.34", class1, class2, class3);
+    assertThat(result.getExitCode(), equalTo(0));
+
+    String out = result.getTextWrittenToStandardOut();
+    assertThat(out, containsString(class1));
+    assertThat(out, containsString(class2));
+    assertThat(out, containsString(class3));
+
+  }
 }

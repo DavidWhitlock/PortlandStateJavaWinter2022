@@ -4,7 +4,8 @@ import com.google.common.annotations.VisibleForTesting;
 import edu.pdx.cs410J.lang.Human;
 
 import java.util.ArrayList;
-                                                                                    
+import java.util.function.Consumer;
+
 /**                                                                                 
  * This class is represents a <code>Student</code>.                                 
  */                                                                                 
@@ -20,6 +21,7 @@ public class Student extends Human {
 
   private final String genderPronoun;
   private final double gpa;
+  private final ArrayList<String> classes;
 
   /**
    * Creates a new <code>Student</code>                                             
@@ -43,6 +45,8 @@ public class Student extends Human {
 
     validateGpa(gpa);
     this.gpa = gpa;
+
+    this.classes = classes;
 
     this.genderPronoun = getGenderPronoun(gender);
   }
@@ -73,7 +77,14 @@ public class Student extends Human {
   public String toString() {
     return getName()
       + " has a gpa of " + this.gpa
+      + " and is taking " + getClassNames()
       + " " + this.genderPronoun;
+  }
+
+  private String getClassNames() {
+    StringBuilder sb = new StringBuilder();
+    this.classes.forEach(className -> sb.append(className).append(" "));
+    return sb.toString();
   }
 
   private static String getGenderPronoun(String gender) {
@@ -108,7 +119,12 @@ public class Student extends Human {
       throw new InvalidGpaException(gpaString);
     }
 
-    return new Student(name, new ArrayList<>(), gpa, gender);
+    ArrayList<String> classes = new ArrayList<>();
+    for (int i = 3; i < args.length; i++) {
+      classes.add(args[i]);
+    }
+
+    return new Student(name, classes, gpa, gender);
   }
 
   /**

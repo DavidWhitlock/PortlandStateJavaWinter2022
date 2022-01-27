@@ -2,9 +2,11 @@ package edu.pdx.cs410J.whitlock;
 
 import edu.pdx.cs410J.whitlock.Student.InvalidGpaException;
 import edu.pdx.cs410J.whitlock.Student.UnrecognizedGenderException;
+import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -126,5 +128,24 @@ public class StudentTest
     double gpa = 3.45;
     Student student = createStudentWithGpa(gpa);
     assertThat(student.toString(), containsString(" has a gpa of " + gpa));
+  }
+
+  @Test
+  void toStringContainsEnrolledClasses() {
+    String class1 = "Operating Systems";
+    String class2 = "Compilers";
+    String class3 = "Algorithms";
+
+    ArrayList<String> classes = new ArrayList<>();
+    classes.add(class1);
+    classes.add(class2);
+    classes.add(class3);
+
+    Student student = new Student("Name", classes, 3.45, "other");
+    String toString = student.toString();
+
+    assertThat(toString, StringContains.containsString(class1));
+    assertThat(toString, StringContains.containsString(class2));
+    assertThat(toString, StringContains.containsString(class3));
   }
 }
