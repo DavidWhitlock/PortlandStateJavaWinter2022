@@ -12,19 +12,19 @@ public class CommandLineParserTest {
   void createStudentFromCommandLineWithNonNumericGpaThrowsInvalidGpaException() {
     String invalidGpa = "NOT A DOUBLE";
     Student.InvalidGpaException ex = assertThrows(Student.InvalidGpaException.class,
-      () -> CommandLineParser.createStudentFromCommandLineArguments("name", "other", invalidGpa));
+      () -> new CommandLineParser("name", "other", invalidGpa).createStudent());
     assertThat(ex.getInvalidGpa(), equalTo(invalidGpa));
   }
 
   @Test
   void createStudentFromCommandLineWithZeroArgumentsThrowsMissingCommandLineArgumentsException() {
-    assertThrows(Student.MissingCommandLineArgumentsException.class, () -> CommandLineParser.createStudentFromCommandLineArguments());
+    assertThrows(Student.MissingCommandLineArgumentsException.class, CommandLineParser::new);
   }
 
   @Test
   void createStudentFromCommandLineSetsGender() {
     String gender = "female";
-    Student student = CommandLineParser.createStudentFromCommandLineArguments("name", gender, "3.45");
+    Student student = new CommandLineParser("name", gender, "3.45").createStudent();
     assertThat(student.getGenderPronoun(), equalTo(Student.FEMALE_PRONOUN));
   }
 

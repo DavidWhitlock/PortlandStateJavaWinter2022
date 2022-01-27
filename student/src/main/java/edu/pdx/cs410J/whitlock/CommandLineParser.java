@@ -5,37 +5,38 @@ import com.google.common.annotations.VisibleForTesting;
 import java.util.ArrayList;
 
 public class CommandLineParser {
-  public CommandLineParser(String[] args) {
-  }
+  private final String name;
+  private final String gender;
+  private final String gpa;
+  private final ArrayList<String> classes = new ArrayList<>();
 
-  public Student createStudent() {
-    return null;
-  }
-
-  @VisibleForTesting
-  static Student createStudentFromCommandLineArguments(String... args) {
+  public CommandLineParser(String... args) {
     if (args.length < 3) {
       throw new Student.MissingCommandLineArgumentsException();
     }
 
-    String name = args[0];
-    String gender = args[1];
-    String gpaString = args[2];
+    this.name = args[0];
+    this.gender = args[1];
+    this.gpa = args[2];
 
+    for (int i = 3; i < args.length; i++) {
+      this.classes.add(args[i]);
+    }
+  }
+
+  public Student createStudent() {
+    return new Student(name, classes, parseGpa(), gender);
+  }
+
+  protected double parseGpa() {
     double gpa;
     try {
-      gpa = Double.parseDouble(gpaString);
+      gpa = Double.parseDouble(this.gpa);
 
     } catch (NumberFormatException ex) {
-      throw new Student.InvalidGpaException(gpaString);
+      throw new Student.InvalidGpaException(this.gpa);
     }
-
-    ArrayList<String> classes = new ArrayList<>();
-    for (int i = 3; i < args.length; i++) {
-      classes.add(args[i]);
-    }
-
-    return new Student(name, classes, gpa, gender);
+    return gpa;
   }
 
 }

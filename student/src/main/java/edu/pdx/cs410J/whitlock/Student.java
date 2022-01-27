@@ -108,7 +108,7 @@ public class Student extends Human {
    */
   public static void main(String[] args) {
     try {
-      Student student = CommandLineParser.createStudentFromCommandLineArguments(args);
+      Student student = new CommandLineParser(args).createStudent();
       System.out.println(student);
       System.exit(0);
 
