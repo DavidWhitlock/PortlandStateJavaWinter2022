@@ -120,4 +120,11 @@ public class StudentTest
     Student student = Student.createStudentFromCommandLineArguments("name", gender, "3.45");
     assertThat(student.getGenderPronoun(), equalTo(Student.FEMALE_PRONOUN));
   }
+
+  @Test
+  void toStringContainsGpa() {
+    double gpa = 3.45;
+    Student student = createStudentWithGpa(gpa);
+    assertThat(student.toString(), containsString(" has a gpa of " + gpa));
+  }
 }

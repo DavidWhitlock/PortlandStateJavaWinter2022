@@ -19,6 +19,7 @@ public class Student extends Human {
   static final String MISSING_COMMAND_LINE_ARGUMENTS = "Missing command line arguments";
 
   private final String genderPronoun;
+  private final double gpa;
 
   /**
    * Creates a new <code>Student</code>                                             
@@ -41,6 +42,7 @@ public class Student extends Human {
     }
 
     validateGpa(gpa);
+    this.gpa = gpa;
 
     this.genderPronoun = getGenderPronoun(gender);
   }
@@ -69,7 +71,9 @@ public class Student extends Human {
    * <code>Student</code>.                                                          
    */                                                                               
   public String toString() {
-    return getName() + " " + this.genderPronoun;
+    return getName()
+      + " has a gpa of " + this.gpa
+      + " " + this.genderPronoun;
   }
 
   private static String getGenderPronoun(String gender) {
