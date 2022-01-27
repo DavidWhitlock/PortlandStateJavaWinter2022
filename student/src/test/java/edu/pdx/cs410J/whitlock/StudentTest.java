@@ -6,14 +6,11 @@ import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.in;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Unit tests for the Student class.  In addition to the JUnit annotations,
