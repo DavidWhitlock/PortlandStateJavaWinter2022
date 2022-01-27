@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"advanced"},{"l":"All Packages","u":"allpackages-index.html"},{"l":"beginner"},{"l":"intermediate"},{"l":"java7"},{"l":"java8"}];updateSearchResults();
