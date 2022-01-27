@@ -102,27 +102,6 @@ public class StudentTest
     return new Student("Name", new ArrayList<>(), gpa, "other");
   }
 
-
-  @Test
-  void createStudentFromCommandLineWithNonNumericGpaThrowsInvalidGpaException() {
-    String invalidGpa = "NOT A DOUBLE";
-    InvalidGpaException ex = assertThrows(InvalidGpaException.class,
-      () -> Student.createStudentFromCommandLineArguments("name", "other", invalidGpa));
-    assertThat(ex.getInvalidGpa(), equalTo(invalidGpa));
-  }
-
-  @Test
-  void createStudentFromCommandLineWithZeroArgumentsThrowsMissingCommandLineArgumentsException() {
-    assertThrows(Student.MissingCommandLineArgumentsException.class, () -> Student.createStudentFromCommandLineArguments());
-  }
-
-  @Test
-  void createStudentFromCommandLineSetsGender() {
-    String gender = "female";
-    Student student = Student.createStudentFromCommandLineArguments("name", gender, "3.45");
-    assertThat(student.getGenderPronoun(), equalTo(Student.FEMALE_PRONOUN));
-  }
-
   @Test
   void toStringContainsGpa() {
     double gpa = 3.45;

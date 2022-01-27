@@ -101,32 +101,6 @@ public class Student extends Human {
     throw new UnrecognizedGenderException("Gender " + gender + " not supported yet");
   }
 
-  @VisibleForTesting
-  static Student createStudentFromCommandLineArguments(String... args) {
-    if (args.length < 3) {
-      throw new MissingCommandLineArgumentsException();
-    }
-
-    String name = args[0];
-    String gender = args[1];
-    String gpaString = args[2];
-
-    double gpa;
-    try {
-      gpa = Double.parseDouble(gpaString);
-
-    } catch (NumberFormatException ex) {
-      throw new InvalidGpaException(gpaString);
-    }
-
-    ArrayList<String> classes = new ArrayList<>();
-    for (int i = 3; i < args.length; i++) {
-      classes.add(args[i]);
-    }
-
-    return new Student(name, classes, gpa, gender);
-  }
-
   /**
    * Main program that parses the command line, creates a
    * <code>Student</code>, and prints a description of the student to
@@ -134,7 +108,7 @@ public class Student extends Human {
    */
   public static void main(String[] args) {
     try {
-      Student student = createStudentFromCommandLineArguments(args);
+      Student student = CommandLineParser.createStudentFromCommandLineArguments(args);
       System.out.println(student);
       System.exit(0);
 
