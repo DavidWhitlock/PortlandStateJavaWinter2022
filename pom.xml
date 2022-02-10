@@ -27,6 +27,7 @@ accordingly
     <module>student</module>
     <module>airline</module>
     <module>koans</module>
+    <module>airline-web</module>
   </modules>
 
   <inceptionYear>2021</inceptionYear>
