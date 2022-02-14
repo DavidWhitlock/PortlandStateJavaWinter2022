@@ -110,7 +110,7 @@ public class AirlineServlet extends HttpServlet {
    * The text of the message is formatted with {@link TextDumper}
    */
   private void writeDefinition(String word, HttpServletResponse response) throws IOException {
-    String definition = this.dictionary.get(word);
+    String definition = getDefinition(word);
 
     if (definition == null) {
       response.setStatus(HttpServletResponse.SC_NOT_FOUND);
