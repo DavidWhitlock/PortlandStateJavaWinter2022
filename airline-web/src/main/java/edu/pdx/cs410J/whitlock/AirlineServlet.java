@@ -17,7 +17,7 @@ import java.util.Map;
  * and their definitions.
  */
 public class AirlineServlet extends HttpServlet {
-  static final String WORD_PARAMETER = "word";
+  static final String AIRLINE_NAME_PARAMETER = "airline";
   static final String DEFINITION_PARAMETER = "definition";
 
   private final Map<String, String> dictionary = new HashMap<>();
@@ -33,12 +33,12 @@ public class AirlineServlet extends HttpServlet {
   {
       response.setContentType( "text/plain" );
 
-      String word = getParameter( WORD_PARAMETER, request );
-      if (word != null) {
-          writeDefinition(word, response);
+      String airlineName = getParameter(AIRLINE_NAME_PARAMETER, request );
+      if (airlineName != null) {
+          dumpAirline(airlineName, response);
 
       } else {
-          writeAllDictionaryEntries(response);
+          missingRequiredParameter(response, AIRLINE_NAME_PARAMETER);
       }
   }
 
@@ -52,9 +52,9 @@ public class AirlineServlet extends HttpServlet {
   {
       response.setContentType( "text/plain" );
 
-      String word = getParameter(WORD_PARAMETER, request );
+      String word = getParameter(AIRLINE_NAME_PARAMETER, request );
       if (word == null) {
-          missingRequiredParameter(response, WORD_PARAMETER);
+          missingRequiredParameter(response, AIRLINE_NAME_PARAMETER);
           return;
       }
 
@@ -109,7 +109,7 @@ public class AirlineServlet extends HttpServlet {
    *
    * The text of the message is formatted with {@link TextDumper}
    */
-  private void writeDefinition(String word, HttpServletResponse response) throws IOException {
+  private void dumpAirline(String word, HttpServletResponse response) throws IOException {
     String definition = getDefinition(word);
 
     if (definition == null) {

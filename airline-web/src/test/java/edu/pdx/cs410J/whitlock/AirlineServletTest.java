@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 class AirlineServletTest {
 
   @Test
-  void initiallyServletContainsNoDictionaryEntries() throws IOException {
+  void missingAirlineNameReturnsPreconditionFailedStatus() throws IOException {
     AirlineServlet servlet = new AirlineServlet();
 
     HttpServletRequest request = mock(HttpServletRequest.class);
@@ -32,9 +32,7 @@ class AirlineServletTest {
 
     servlet.doGet(request, response);
 
-    // Nothing is written to the response's PrintWriter
-    verify(pw, never()).println(anyString());
-    verify(response).setStatus(HttpServletResponse.SC_OK);
+    verify(response).sendError(HttpServletResponse.SC_PRECONDITION_FAILED, Messages.missingRequiredParameter(AirlineServlet.AIRLINE_NAME_PARAMETER));
   }
 
   @Test
@@ -45,7 +43,7 @@ class AirlineServletTest {
     String definition = "TEST DEFINITION";
 
     HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getParameter(AirlineServlet.WORD_PARAMETER)).thenReturn(word);
+    when(request.getParameter(AirlineServlet.AIRLINE_NAME_PARAMETER)).thenReturn(word);
     when(request.getParameter(AirlineServlet.DEFINITION_PARAMETER)).thenReturn(definition);
 
     HttpServletResponse response = mock(HttpServletResponse.class);
