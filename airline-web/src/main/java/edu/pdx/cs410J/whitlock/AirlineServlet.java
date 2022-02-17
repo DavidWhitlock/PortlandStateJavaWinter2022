@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class AirlineServlet extends HttpServlet {
   static final String AIRLINE_NAME_PARAMETER = "airline";
-  static final String FLIGHT_NUMBER_PARAMETER = "definition";
+  static final String FLIGHT_NUMBER_PARAMETER = "flightNumber";
 
   private final Map<String, Airline> airlines = new HashMap<>();
 
