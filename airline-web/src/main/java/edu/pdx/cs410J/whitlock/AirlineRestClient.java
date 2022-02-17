@@ -36,32 +36,28 @@ public class AirlineRestClient extends HttpRequestHelper
    * Returns all dictionary entries from the server
    */
   public Map<String, String> getAllDictionaryEntries() throws IOException, ParserException {
-    Response response = get(this.url, Map.of());
-
-    TextParser parser = new TextParser(new StringReader(response.getContent()));
-//    return parser.parse();
-    return null;
+    throw new UnsupportedOperationException("Delete me!");
   }
 
   /**
-   * Returns the definition for the given word
+   * Returns the definition for the given airline
+   * @return
    */
-  public String getDefinition(String word) throws IOException, ParserException {
-    Response response = get(this.url, Map.of("word", word));
+  public Airline getAirline(String airlineName) throws IOException, ParserException {
+    Response response = get(this.url, Map.of("airline", airlineName));
     throwExceptionIfNotOkayHttpStatus(response);
     String content = response.getContent();
 
     TextParser parser = new TextParser(new StringReader(content));
-//    return parser.parse().get(word);
-    return null;
+    return parser.parse();
   }
 
-  public void addDictionaryEntry(String word, String definition) throws IOException {
-    Response response = post(this.url, Map.of("word", word, "definition", definition));
+  public void addFlight(String airlineName, Flight flight) throws IOException {
+    Response response = post(this.url, Map.of("airline", airlineName, "flightNumber", String.valueOf(flight.getNumber())));
     throwExceptionIfNotOkayHttpStatus(response);
   }
 
-  public void removeAllDictionaryEntries() throws IOException {
+  public void removeAllAirlines() throws IOException {
     Response response = delete(this.url, Map.of());
     throwExceptionIfNotOkayHttpStatus(response);
   }

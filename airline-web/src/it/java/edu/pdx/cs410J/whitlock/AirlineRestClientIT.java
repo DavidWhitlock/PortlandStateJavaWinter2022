@@ -1,18 +1,15 @@
 package edu.pdx.cs410J.whitlock;
 
 import edu.pdx.cs410J.ParserException;
-import edu.pdx.cs410J.web.HttpRequestHelper;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.util.Map;
+import java.util.Collection;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.hamcrest.Matchers.*;
 
 /**
  * Integration test that tests the REST calls made by {@link AirlineRestClient}
@@ -28,36 +25,25 @@ class AirlineRestClientIT {
   }
 
   @Test
-  void test0RemoveAllDictionaryEntries() throws IOException {
+  void test0RemoveAllAirlines() throws IOException {
     AirlineRestClient client = newAirlineRestClient();
-    client.removeAllDictionaryEntries();
+    client.removeAllAirlines();
   }
 
   @Test
-  void test1EmptyServerContainsNoDictionaryEntries() throws IOException, ParserException {
+  void test2CreateFlightInNewAirline() throws IOException, ParserException {
     AirlineRestClient client = newAirlineRestClient();
-    Map<String, String> dictionary = client.getAllDictionaryEntries();
-    assertThat(dictionary.size(), equalTo(0));
+    String airlineName = "Test Airline";
+    int flightNumber = 1234;
+    client.addFlight(airlineName, new Flight(flightNumber));
+
+    Airline airline = client.getAirline(airlineName);
+    assertThat(airline, notNullValue());
+    assertThat(airline.getName(), equalTo(airlineName));
+    Collection<Flight> flights = airline.getFlights();
+    assertThat(flights, hasSize(1));
+    Flight flight = flights.iterator().next();
+    assertThat(flight.getNumber(), equalTo(flightNumber));
   }
 
-  @Test
-  void test2DefineOneWord() throws IOException, ParserException {
-    AirlineRestClient client = newAirlineRestClient();
-    String testWord = "TEST WORD";
-    String testDefinition = "TEST DEFINITION";
-    client.addDictionaryEntry(testWord, testDefinition);
-
-    String definition = client.getDefinition(testWord);
-    assertThat(definition, equalTo(testDefinition));
-  }
-
-  @Test
-  void test4EmptyWordThrowsException() {
-    AirlineRestClient client = newAirlineRestClient();
-    String emptyString = "";
-
-    HttpRequestHelper.RestException ex =
-      assertThrows(HttpRequestHelper.RestException.class, () -> client.addDictionaryEntry(emptyString, emptyString));
-    assertThat(ex.getHttpStatusCode(), equalTo(HttpURLConnection.HTTP_PRECON_FAILED));
-    assertThat(ex.getMessage(), equalTo(Messages.missingRequiredParameter("word")));
-  }}
+}

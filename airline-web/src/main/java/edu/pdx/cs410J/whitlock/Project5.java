@@ -1,11 +1,6 @@
 package edu.pdx.cs410J.whitlock;
 
-import edu.pdx.cs410J.ParserException;
-
-import java.io.IOException;
 import java.io.PrintStream;
-import java.io.StringWriter;
-import java.util.Map;
 
 /**
  * The main class that parses the command line and communicates with the
@@ -58,33 +53,33 @@ public class Project5 {
         }
 
         AirlineRestClient client = new AirlineRestClient(hostName, port);
-
-        String message;
-        try {
-            if (word == null) {
-                // Print all word/definition pairs
-                Map<String, String> dictionary = client.getAllDictionaryEntries();
-                StringWriter sw = new StringWriter();
-                PrettyPrinter pretty = new PrettyPrinter(sw);
-                pretty.dump(dictionary);
-                message = sw.toString();
-
-            } else if (definition == null) {
-                // Print all dictionary entries
-                message = PrettyPrinter.formatDictionaryEntry(word, client.getDefinition(word));
-
-            } else {
-                // Post the word/definition pair
-                client.addDictionaryEntry(word, definition);
-                message = Messages.definedWordAs(word, definition);
-            }
-
-        } catch (IOException | ParserException ex ) {
-            error("While contacting server: " + ex);
-            return;
-        }
-
-        System.out.println(message);
+//
+//        String message;
+//        try {
+//            if (word == null) {
+//                // Print all word/definition pairs
+//                Map<String, String> dictionary = client.getAllDictionaryEntries();
+//                StringWriter sw = new StringWriter();
+//                PrettyPrinter pretty = new PrettyPrinter(sw);
+//                pretty.dump(dictionary);
+//                message = sw.toString();
+//
+//            } else if (definition == null) {
+//                // Print all dictionary entries
+//                message = PrettyPrinter.formatDictionaryEntry(word, client.getAirline(word));
+//
+//            } else {
+//                // Post the word/definition pair
+//                client.addFlight(word, definition);
+//                message = Messages.definedWordAs(word, definition);
+//            }
+//
+//        } catch (IOException | ParserException ex ) {
+//            error("While contacting server: " + ex);
+//            return;
+//        }
+//
+//        System.out.println(message);
 
         System.exit(0);
     }
