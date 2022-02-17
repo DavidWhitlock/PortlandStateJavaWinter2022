@@ -64,11 +64,7 @@ public class AirlineServlet extends HttpServlet {
           return;
       }
 
-      Airline airline = getAirline(airlineName);
-      if (airline == null) {
-        airline = new Airline(airlineName);
-        this.airlines.put(airlineName, airline);
-      }
+      Airline airline = getOrCreateAirline(airlineName);
 
       airline.addFlight(new Flight(Integer.parseInt(flightNumberString)));
 
@@ -144,7 +140,17 @@ public class AirlineServlet extends HttpServlet {
   }
 
   @VisibleForTesting
-  Airline getAirline(String word) {
-      return this.airlines.get(word);
+  Airline getOrCreateAirline(String airlineName) {
+    Airline airline = getAirline(airlineName);
+    if (airline == null) {
+      airline = new Airline(airlineName);
+      this.airlines.put(airlineName, airline);
+    }
+
+    return airline;
+  }
+
+  private Airline getAirline(String airlineName) {
+    return this.airlines.get(airlineName);
   }
 }

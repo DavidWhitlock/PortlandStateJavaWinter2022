@@ -39,7 +39,8 @@ public class AirlineRestClient extends HttpRequestHelper
     Response response = get(this.url, Map.of());
 
     TextParser parser = new TextParser(new StringReader(response.getContent()));
-    return parser.parse();
+//    return parser.parse();
+    return null;
   }
 
   /**
@@ -51,7 +52,8 @@ public class AirlineRestClient extends HttpRequestHelper
     String content = response.getContent();
 
     TextParser parser = new TextParser(new StringReader(content));
-    return parser.parse().get(word);
+//    return parser.parse().get(word);
+    return null;
   }
 
   public void addDictionaryEntry(String word, String definition) throws IOException {

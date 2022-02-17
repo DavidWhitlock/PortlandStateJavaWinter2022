@@ -5,10 +5,6 @@ import edu.pdx.cs410J.ParserException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TextParser {
   private final Reader reader;
@@ -17,31 +13,26 @@ public class TextParser {
     this.reader = reader;
   }
 
-  public Map<String, String> parse() throws ParserException {
-    Pattern pattern = Pattern.compile("(.*) : (.*)");
-
-    Map<String, String> map = new HashMap<>();
-
+  public Airline parse() throws ParserException {
     try (
       BufferedReader br = new BufferedReader(this.reader)
     ) {
 
+      Airline airline = null;
       for (String line = br.readLine(); line != null; line = br.readLine()) {
-        Matcher matcher = pattern.matcher(line);
-        if (!matcher.find()) {
-          throw new ParserException("Unexpected text: " + line);
+        if (airline == null) {
+          airline = new Airline(line);
+
+        } else {
+          airline.addFlight(new Flight(Integer.parseInt(line)));
         }
-
-        String word = matcher.group(1);
-        String definition = matcher.group(2);
-
-        map.put(word, definition);
       }
+
+      return airline;
 
     } catch (IOException e) {
       throw new ParserException("While parsing dictionary", e);
     }
 
-    return map;
   }
 }

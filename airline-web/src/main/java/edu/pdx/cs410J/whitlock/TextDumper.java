@@ -13,8 +13,13 @@ public class TextDumper {
   public void dump(Airline airline) {
     try (
       PrintWriter pw = new PrintWriter(this.writer)
-    ){
+    ) {
       pw.println(airline.getName());
+
+      airline.getFlights().forEach(flight -> {
+          pw.println(flight.getNumber());
+        }
+      );
 
       pw.flush();
     }
