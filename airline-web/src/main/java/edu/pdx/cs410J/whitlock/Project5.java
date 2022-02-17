@@ -1,6 +1,8 @@
 package edu.pdx.cs410J.whitlock;
 
-import java.io.PrintStream;
+import edu.pdx.cs410J.ParserException;
+
+import java.io.*;
 
 /**
  * The main class that parses the command line and communicates with the
@@ -13,8 +15,8 @@ public class Project5 {
     public static void main(String... args) {
         String hostName = null;
         String portString = null;
-        String word = null;
-        String definition = null;
+        String airlineName = null;
+        String flightNumberString = null;
 
         for (String arg : args) {
             if (hostName == null) {
@@ -23,11 +25,11 @@ public class Project5 {
             } else if ( portString == null) {
                 portString = arg;
 
-            } else if (word == null) {
-                word = arg;
+            } else if (airlineName == null) {
+                airlineName = arg;
 
-            } else if (definition == null) {
-                definition = arg;
+            } else if (flightNumberString == null) {
+                flightNumberString = arg;
 
             } else {
                 usage("Extraneous command line argument: " + arg);
@@ -39,7 +41,11 @@ public class Project5 {
             return;
 
         } else if ( portString == null) {
-            usage( "Missing port" );
+            usage("Missing port");
+            return;
+
+        } else if (airlineName == null) {
+            usage("Missing airline name");
             return;
         }
 
@@ -53,33 +59,22 @@ public class Project5 {
         }
 
         AirlineRestClient client = new AirlineRestClient(hostName, port);
-//
-//        String message;
-//        try {
-//            if (word == null) {
-//                // Print all word/definition pairs
-//                Map<String, String> dictionary = client.getAllDictionaryEntries();
-//                StringWriter sw = new StringWriter();
-//                PrettyPrinter pretty = new PrettyPrinter(sw);
-//                pretty.dump(dictionary);
-//                message = sw.toString();
-//
-//            } else if (definition == null) {
-//                // Print all dictionary entries
-//                message = PrettyPrinter.formatDictionaryEntry(word, client.getAirline(word));
-//
-//            } else {
-//                // Post the word/definition pair
-//                client.addFlight(word, definition);
-//                message = Messages.definedWordAs(word, definition);
-//            }
-//
-//        } catch (IOException | ParserException ex ) {
-//            error("While contacting server: " + ex);
-//            return;
-//        }
-//
-//        System.out.println(message);
+
+        try {
+            if (flightNumberString == null) {
+                // Pretty print airline
+                Airline airline = client.getAirline(airlineName);
+                new PrettyPrinter(new OutputStreamWriter(System.out)).dump(airline);
+
+            } else {
+                // Add the flight
+                client.addFlight(airlineName, new Flight(Integer.parseInt(flightNumberString)));
+            }
+
+        } catch (IOException | ParserException ex ) {
+            error("While contacting server: " + ex);
+            return;
+        }
 
         System.exit(0);
     }
