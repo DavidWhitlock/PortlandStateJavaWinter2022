@@ -62,4 +62,10 @@ class Project5IT extends InvokeMainTestCase {
         String out = result.getTextWrittenToStandardOut();
         assertThat(out, out, containsString(PrettyPrinter.formatFlightNumber(flightNumber)));
     }
+
+    @Test
+    void readmeOptionPrintsREADME() {
+        MainMethodResult result = invokeMain(Project5.class, "-README");
+        assertThat(result.getTextWrittenToStandardOut(), containsString("This is a README file!"));
+    }
 }

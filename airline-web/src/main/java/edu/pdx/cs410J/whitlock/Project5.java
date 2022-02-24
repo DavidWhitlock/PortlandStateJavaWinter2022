@@ -12,14 +12,17 @@ public class Project5 {
 
     public static final String MISSING_ARGS = "Missing command line arguments";
 
-    public static void main(String... args) {
+    public static void main(String... args) throws IOException {
         String hostName = null;
         String portString = null;
         String airlineName = null;
         String flightNumberString = null;
 
         for (String arg : args) {
-            if (hostName == null) {
+            if (arg.equals("-README")) {
+                printReadmeAndExit();
+
+            } else if (hostName == null) {
                 hostName = arg;
 
             } else if ( portString == null) {
@@ -77,6 +80,18 @@ public class Project5 {
         }
 
         System.exit(0);
+    }
+
+    private static void printReadmeAndExit() throws IOException {
+        InputStream readme = Project5.class.getResourceAsStream("README.txt");
+        try (
+          BufferedReader reader = new BufferedReader(new InputStreamReader(readme))
+          ) {
+            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+                System.out.println(line);
+            }
+        }
+
     }
 
     private static void error( String message )
