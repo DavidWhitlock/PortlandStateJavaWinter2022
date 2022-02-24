@@ -1,5 +1,8 @@
 package edu.pdx.cs410j.whitlock;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 import android.content.Context;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -18,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        Assertions.assertEquals("edu.pdx.cs410j.whitlock", appContext.getPackageName());
+        assertThat(appContext.getPackageName(), equalTo("edu.pdx.cs410j.whitlock"));
     }
 }

@@ -1,5 +1,8 @@
 package edu.pdx.cs410j.whitlock;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +14,6 @@ import org.junit.jupiter.api.Test;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        Assertions.assertEquals(4, 2 + 2);
+        assertThat(2 + 2, equalTo(4));
     }
 }
