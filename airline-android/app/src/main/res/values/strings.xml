@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AirlineActivity</string>
+    <string name="buttonName">This is a very long string for a button name</string>
+    <string name="helloText">Hello Again Java Class!</string>
 </resources>
