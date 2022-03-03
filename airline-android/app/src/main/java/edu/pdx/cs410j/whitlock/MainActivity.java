@@ -13,8 +13,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button button = findViewById(R.id.button2);
-        button.setOnClickListener(view -> Toast.makeText(MainActivity.this, "You clicked a button!", Toast.LENGTH_LONG).show());
     }
+
+    public void displayButtonClicked(View view) {
+        Toast.makeText(MainActivity.this, "You clicked a button again!", Toast.LENGTH_LONG).show();
+    }
+
 }
