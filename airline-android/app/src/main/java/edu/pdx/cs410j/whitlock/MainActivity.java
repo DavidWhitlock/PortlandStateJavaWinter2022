@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == GET_SUM_FROM_CALCULATOR && resultCode == RESULT_OK && data != null) {
             this.sums.add(data.getIntExtra(CalculatorActivity.EXTRA_SUM, 0));
+            Flight flight = (Flight) data.getSerializableExtra(CalculatorActivity.EXTRA_FLIGHT);
+            Toast.makeText(this, "Flight: " + flight, Toast.LENGTH_LONG).show();
         }
     }
 }

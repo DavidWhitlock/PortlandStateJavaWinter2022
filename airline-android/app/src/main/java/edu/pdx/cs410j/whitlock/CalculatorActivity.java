@@ -13,6 +13,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
     public static final String INITIAL_LEFT_OPERAND_VALUE = "INITIAL_LEFT_OPERAND_VALUE";
     static final String EXTRA_SUM = "SUM";
+    static final String EXTRA_FLIGHT = "FLIGHT";
     private int sum;
 
     @Override
@@ -54,6 +55,7 @@ public class CalculatorActivity extends AppCompatActivity {
     public void returnToMain(View view) {
         Intent data = new Intent();
         data.putExtra(EXTRA_SUM, this.sum);
+        data.putExtra(EXTRA_FLIGHT, new Flight(this.sum));
         setResult(RESULT_OK, data);
         finish();
     }
