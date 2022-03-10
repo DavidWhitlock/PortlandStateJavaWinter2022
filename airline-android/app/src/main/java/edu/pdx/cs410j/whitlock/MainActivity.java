@@ -1,15 +1,14 @@
 package edu.pdx.cs410j.whitlock;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.sums);
         listView.setAdapter(this.sums);
+        listView.setOnItemClickListener((adapterView, view, index, id) -> {
+            int sum = MainActivity.this.sums.getItem(index);
+            Toast.makeText(MainActivity.this, "Clicked on sum " + sum, Toast.LENGTH_LONG).show();
+        });
     }
 
     public void launchCalculator(View view) {
