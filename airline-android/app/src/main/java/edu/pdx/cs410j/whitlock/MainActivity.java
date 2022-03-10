@@ -10,6 +10,12 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int GET_SUM_FROM_CALCULATOR = 42;
@@ -43,8 +49,21 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == GET_SUM_FROM_CALCULATOR && resultCode == RESULT_OK && data != null) {
             this.sums.add(data.getIntExtra(CalculatorActivity.EXTRA_SUM, 0));
+            writeSumsToDisk();
             Flight flight = (Flight) data.getSerializableExtra(CalculatorActivity.EXTRA_FLIGHT);
             Toast.makeText(this, "Flight: " + flight, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void writeSumsToDisk() {
+        File file = new File(this.getFilesDir(), "sums.txt");
+        try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
+            for (int i = 0; i < this.sums.getCount(); i++) {
+                pw.println(this.sums.getItem(i));
+            }
+
+        } catch (IOException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
