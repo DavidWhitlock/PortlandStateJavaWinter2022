@@ -2,4 +2,5 @@
     <string name="app_name">AirlineActivity</string>
     <string name="launchCalculator">Launch Calculator</string>
     <string name="helloText">Hello Again Java Class!</string>
+    <string name="return_to_main">Return to Main</string>
 </resources>

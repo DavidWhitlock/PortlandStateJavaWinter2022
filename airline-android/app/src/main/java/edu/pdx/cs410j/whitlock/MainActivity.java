@@ -1,5 +1,6 @@
 package edu.pdx.cs410j.whitlock;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int GET_SUM_FROM_CALCULATOR = 42;
     private ArrayAdapter<Integer> sums;
 
     @Override
@@ -23,15 +25,19 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.sums);
         listView.setAdapter(this.sums);
-
-        for (int i = 0; i < 50; i++) {
-            this.sums.add(i);
-        }
     }
 
     public void launchCalculator(View view) {
         Intent intent = new Intent(this, CalculatorActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, GET_SUM_FROM_CALCULATOR);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GET_SUM_FROM_CALCULATOR && resultCode == RESULT_OK && data != null) {
+            this.sums.add(data.getIntExtra(CalculatorActivity.EXTRA_SUM, 0));
+        }
+    }
 }
