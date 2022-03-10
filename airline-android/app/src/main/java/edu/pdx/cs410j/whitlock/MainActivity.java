@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(this.sums);
         listView.setOnItemClickListener((adapterView, view, index, id) -> {
             int sum = MainActivity.this.sums.getItem(index);
-            Toast.makeText(MainActivity.this, "Clicked on sum " + sum, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, CalculatorActivity.class);
+            intent.putExtra(CalculatorActivity.INITIAL_LEFT_OPERAND_VALUE, sum);
+            startActivityForResult(intent, GET_SUM_FROM_CALCULATOR);
         });
     }
 

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class CalculatorActivity extends AppCompatActivity {
 
+    public static final String INITIAL_LEFT_OPERAND_VALUE = "INITIAL_LEFT_OPERAND_VALUE";
     static final String EXTRA_SUM = "SUM";
     private int sum;
 
@@ -18,6 +19,14 @@ public class CalculatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
+        Intent intent = getIntent();
+        int initialLeftOperand;
+        if (intent.hasExtra(INITIAL_LEFT_OPERAND_VALUE)) {
+            initialLeftOperand = intent.getIntExtra(INITIAL_LEFT_OPERAND_VALUE, 0);
+            EditText leftOperand = findViewById(R.id.leftOperand);
+            leftOperand.setText(String.valueOf(initialLeftOperand));
+        }
     }
 
 
